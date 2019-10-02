@@ -1,0 +1,10 @@
+﻿@using (Html.BeginUmbracoForm("HandleFormSubmit", "ContactFormSurface",
+    new object { }, new { @class = "form-horizontal" }))
+{
+    @Html.EditorFor(x => Model)
+    <input type="submit" />
+
+
+
+}
+

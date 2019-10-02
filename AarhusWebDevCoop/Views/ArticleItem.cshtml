@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ArticleItem>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+	<!-- Banner -->
+			<section id="banner-articles">
+				<h2>@Model.Value("siteTitle")</h2>
+
+			</section>
+
+@Model.Value("articleTitle")
+
+@Model.Value("articleContent")

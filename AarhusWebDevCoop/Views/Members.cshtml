@@ -1,0 +1,40 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Members>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Umbraco.Core;
+@using Umbraco.Core.Models;
+@using Umbraco.Core.Services;
+@{
+	Layout = "Master.cshtml";
+	IMemberService memberService = Services.MemberService;
+
+    var members = memberService.GetMembersByGroup("Active");
+}
+
+
+
+<section id="one" class="wrapper style1" >
+  
+</section>
+
+
+<div class="container">
+@foreach (var member in members) {
+
+    <img src="@member.GetValue("photo")">
+    <img @member.GetValue("photo2")>
+    <p>
+    @member.Name <br>
+    @member.GetValue("address") <br>
+    @member.GetValue("zip") 
+    @member.GetValue("city") <br>
+    Email: @member.Email <br>
+    </p>
+        // member.GetValue("skills").ToString(). E.g.: ["AngularJS","CSS","ASP.NETMVC","PHP"]
+    if (member.GetValue("skills") != null) {
+    string[] skills = member.GetValue("skills").ToString().Split(',');
+    string skillString = string.Join(", ", skills.Select(item => item)).Replace("\"", "").TrimStart('[').TrimEnd(']');
+    <span>Skills: @skillString</span> <br>
+    <br/>
+}
+}
+    </div>

@@ -1,0 +1,103 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@using Umbraco.Core.Models.PublishedContent
+
+@using Umbraco.Web
+
+@{
+
+var root = Model.Content.Root();
+
+var selection = root.AncestorOrSelf(2).Children.Where(x => x.IsVisible()).ToArray();
+
+}
+
+<ul class="navbar-nav ml-auto navbar-right flex-row">
+
+<li class ="nav-item @(Model.Content.Name == root.Name ? "active" : null) ">
+
+<a class="nav-link" href="@root.Url">@root.Name</a> 
+
+</li>
+
+@if (selection.Length > 0) { 
+
+foreach (var menuItem in selection)
+
+    {
+    
+    //Children of the root
+    
+    if (menuItem.Children().Where(x => x.IsVisible()).Count() > 0)
+    
+    {
+    
+    <li class="nav-item dropdown @(menuItem.IsAncestorOrSelf(Model.Content) ? "selected" : null)">
+    
+    <a class="nav-link dropdown-toggle" href="@menuItem.Url" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+    
+    @menuItem.Name
+    
+    </a>
+    
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    
+    @foreach (var subItem in menuItem.Children().Where(x => x.IsVisible()))
+    
+    {
+        
+        // if document type is ProjectItem
+        
+        if(subItem.IsDocumentType("ProjectItem"))
+        
+        {
+        <!--if active user, see all projects-->
+        if (Members.IsLoggedIn()){
+            <a class="dropdown-item" href="@subItem.Url">@subItem.Name</a>
+        
+        
+        <!--If guest, see just completed projects-->
+        <!--and if Project status is completed-->
+        
+            } else if (subItem.HasValue("projectStatus") && subItem.GetProperty("projectStatus").Value<string>() == "Completed" && subItem.IsVisible())
+            
+            {
+            
+            <a class="dropdown-item" href="@subItem.Url">@subItem.Name</a>
+            
+            }
+            
+            }
+            
+            //else display subItem as before
+            
+            else{
+            
+            <a class="dropdown-item" href="@subItem.Url">@subItem.Name</a> 
+            
+            }
+    
+    }
+    
+    </div>
+    
+    </li>
+
+    }
+
+else
+
+{
+
+<li class="nav-item @(menuItem.IsAncestorOrSelf(Model.Content) ? "active" : null)"> 
+
+<a class="nav-link" href="@menuItem.Url">@menuItem.Name</a> 
+
+</li> 
+
+}
+
+}
+
+}
+
+</ul>

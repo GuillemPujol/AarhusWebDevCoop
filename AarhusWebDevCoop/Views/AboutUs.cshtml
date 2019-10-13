@@ -1,0 +1,21 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.AboutUs>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+<section id="one" class="wrapper style1" >
+	<div class="container 100%">
+		<div class="row 300%">
+			<div class="">
+                <h2></h2>
+            </div>
+        </div>
+    </div>  
+</section>
+
+
+<div >
+    @Html.GetGridHtml(Model, "ea") 
+</div>

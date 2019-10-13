@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Umbraco.Web;
+@{ 
+    var site = Model.Root();
+    var selection = site.Children.Where(x => x.IsVisible());
+}
+
+<a class="nav-link @Html.Raw(Model.Id == site.Id ? "navi-link--active" : "")" href="@site.Url">@site.Name</a>
+@foreach (var menuItem in root.Children.Where("UmbracoNavHide == false")) {
+    if (Umbraco.MemberHasAccess(menuItem.Path)) 
+    {
+    <li class="@(menuItem.IsAncestorOrSelf(Model.Content) ? "active": null)">
+        <a href="@menuItem.Url">@menuItem.Name</a>
+    </li>
+}
+}

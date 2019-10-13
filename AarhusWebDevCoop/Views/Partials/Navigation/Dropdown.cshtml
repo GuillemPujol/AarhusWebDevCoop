@@ -1,0 +1,87 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Umbraco.Core.Models.PublishedContent
+@using Umbraco.Web
+
+
+@*
+    This snippet makes a list of links of all visible pages of the site, as nested unordered HTML lists.
+
+    How it works:
+    - It uses a custom Razor helper called Traverse() to select and display the markup and links.
+*@
+
+@{ 
+    var selection = Model.Root(); 
+    var isHome = true;
+}
+
+<div class="myNav">
+    @* Render the sitemap by passing the root node to the traverse helper, below *@
+    @Traverse(selection, isHome)
+</div>
+
+
+@* Helper method to traverse through all descendants *@
+@helper Traverse(IPublishedContent node, bool isHome)
+{
+    @* Update the level to reflect how deep you want the sitemap to go *@
+    const int maxLevelForSitemap = 4;
+
+    @* Select visible children *@
+    var selection = node.Children.Where(x => x.IsVisible() && x.Level <= maxLevelForSitemap).ToArray();
+
+
+    @* If any items are returned, render a list *@
+    if (selection.Length > 0)
+    {
+    
+        <ul class="nav navbar-nav navbar-right flex-row">
+            
+            @if(isHome){
+            var site = Model.Root();
+                <a class="nav-link @Html.Raw(Model.Id == site.Id ? "navi-link--active" : "")" href="@site.Url">@site.Name</a>
+            isHome = false;
+            }
+            
+            @foreach (var item in selection)
+            {
+            var children = item.Children(f => f.IsVisible() && f.Level <= maxLevelForSitemap);
+            @*if the code has children, show all the children*@
+            if (children.Any()){
+            
+                <li class="@(item.IsAncestorOrSelf(Model) ? "active": null)">
+                <a class="btn btn-default dropdown-toggle" id="dropdown-@item.Url" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">@item.Name</a>
+                <ul class="dropdown-menu" aria-labelledby="dropdown-@item.Url">
+                  
+                    @foreach (var child in children)
+                    { 
+            @*if you have access, you can see everything. if you don`t, then you can´t see something page*@
+            if (Umbraco.MemberHasAccess(item.Path) ){
+            
+            
+
+                        <li class="dropdown-item">
+                        <a href="@child.Url">@child.Name</a>
+                    
+                        @* Run the traverse helper again for any child pages *@
+                        @Traverse(child, isHome)
+                        </li>
+                       } 
+                    }
+                </ul>
+            </li>
+               
+                }
+
+                else{
+                <li class="nav-link @(item.IsAncestorOrSelf(Model) ? "nav-link--active" : null)">
+                    <a href="@item.Url">@item.Name</a>
+                
+                    @* Run the traverse helper again for any child pages *@
+                    @Traverse(item, isHome)
+                </li>
+                }
+            }
+        </ul>
+    }
+}

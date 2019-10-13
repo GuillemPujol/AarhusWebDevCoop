@@ -1,0 +1,43 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Umbraco.Web
+
+
+@{
+ var root = Model.Root();
+ var selection = root
+ .FirstChildOfType("projectsOverview")
+ .ChildrenOfType("projectItem")
+ .OrderByDescending(x => x.CreateDate)
+ .Take(5)
+ .ToArray();
+}
+
+						
+@if (selection.Length > 0)
+{
+	foreach (var item in selection)
+	{
+	 <!--align-middle-->
+	<div class="feature ">
+				<div class="image rounded " >
+                    <img src="@item.Value("projectImage")">				    
+			    </div>
+			<div class="content">
+				    
+					<header>
+						<h4><a href="@item.Url">@item.Value("projectTitle")</a></h4>
+						<p>@item.Value("projectStatus")</p>
+					</header>
+
+                    
+                      <div class=" text-truncate text-nowrap " style="height: 3rem;">
+                          <p>@item.Value("projectDescription")</p>
+                      </div>
+				</div>
+			</div>
+	
+	   
+		
+		
+	}
+	}

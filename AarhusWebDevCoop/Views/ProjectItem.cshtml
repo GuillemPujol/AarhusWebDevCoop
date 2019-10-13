@@ -3,4 +3,33 @@
 @{
 	Layout = "Master.cshtml";
 }
+	<!-- Banner -->
+			<section id="banner-articles">
+			    <div class="container" >
+				<h2>@Model.Value("projectTitle")</h2>
+				</div>
+				<br/>
+				<p class="text-white">Last edited @Model.UpdateDate.ToString("dd/MM/yyyy")</p>
+			</section>
+			
+			<section id="body-articles">
+			    <div class="container" >
+		        <p><br /><br /></p>
+                <h2 class="text-center"><strong>@Model.Value("projectTitle")</strong></h2>
+                <p><br /></p>
+                @Model.Value("projectDescription")
+				</div>
+				<br/>
+			</section>
+			
 
+				<section id="four" class="wrapper style3 special">
+					<div class="container">
+						<header class="major">
+							<h2></h2>
+						</header>
+						<ul class="actions">
+							<li></li>
+						</ul>
+					</div>
+				</section>

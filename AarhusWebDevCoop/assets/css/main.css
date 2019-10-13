@@ -11,6 +11,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     vertical-align: baseline;
 }
 
+aboutImg{
+    height:150px;
+    width:100%;
+}
 article, aside, details, figcaption, figure, footer, header, hgroup, logo, menu, nav, section {
     display: block;
 }
@@ -1975,10 +1979,11 @@ button,
         }
 
         .feature-grid .feature .image {
-            width: 30%;
         }
 
             .feature-grid .feature .image img {
+                height: 150px;
+                width: 150px;
                 display: inline;
                 max-width: 100%;
             }
@@ -2884,6 +2889,21 @@ body.is-touch .wrapper.style3 {
 }
 
 /* Menu */
+
+.myNav .nav .nav {
+    display: none;
+    position:absolute;
+    box-shadow: black 1px 2px 1px;
+}
+
+    .myNav .nav .nav .li {
+        float: none;
+        background-color:aqua;
+    }
+
+.myNav .nav .li:hover .nav {
+    display: block;
+}
 
 .navPanelToggle {
     text-decoration: none;

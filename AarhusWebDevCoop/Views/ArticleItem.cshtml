@@ -4,12 +4,35 @@
 	Layout = "Master.cshtml";
 }
 
+
+
 	<!-- Banner -->
 			<section id="banner-articles">
-				<h2>@Model.Value("siteTitle")</h2>
-
+			    <div class="container" >
+				<h2>@Model.Value("articleTitle")</h2>
+				</div>
+				<br/>
+				<p class="text-white">Last edited @Model.UpdateDate.ToString("dd/MM/yyyy")</p>
+			</section>
+			
+			<section id="body-articles">
+			    <div class="container" >
+		        <p><br /><br /></p>
+                <h2 class="text-center"><strong>@Model.Value("articleTitle")</strong></h2>
+                <p><br /></p>
+                @Model.Value("articleContent")
+				</div>
+				<br/>
 			</section>
 
-@Model.Value("articleTitle")
 
-@Model.Value("articleContent")
+				<section id="four" class="wrapper style3 special">
+					<div class="container">
+						<header class="major">
+							<h2></h2>
+						</header>
+						<ul class="actions">
+							<li></li>
+						</ul>
+					</div>
+				</section>

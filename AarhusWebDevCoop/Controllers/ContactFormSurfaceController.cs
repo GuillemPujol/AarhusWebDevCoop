@@ -6,13 +6,16 @@ using System.Web.Mvc;
 using System.Net.Mail;
 using Umbraco.Web.Mvc;
 using AarhusWebDevCoop.ViewModels;
+using Umbraco.Core;
+using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 
 
 namespace AarhusWebDevCoop.Controllers
 {
     public class ContactFormSurfaceController : SurfaceController
     {
-        // GET: Default
+        [HttpGet]
         public ActionResult Index()
         {
             return PartialView("_ContactForm", new ContactForm());
@@ -22,10 +25,14 @@ namespace AarhusWebDevCoop.Controllers
         public ActionResult HandleFormSubmit(ContactForm model)
         {
             MailMessage message = new MailMessage();
-            message.To.Add("username@eaaa.dk");
+            message.To.Add("guille8.bcn@gmail.com");
             message.Subject = model.Subject;
             message.From = new MailAddress(model.Email, model.Name);
             message.Body = model.Message;
+
+            if (!ModelState.IsValid) { return CurrentUmbracoPage(); }
+
+            
 
             using (SmtpClient smtp = new SmtpClient())
             {
@@ -34,10 +41,24 @@ namespace AarhusWebDevCoop.Controllers
                 smtp.EnableSsl = true;
                 smtp.Host = "smtp.gmail.com";
                 smtp.Port = 587;
-                smtp.Credentials = new System.Net.NetworkCredential("username@gmail.com", "password");
+                smtp.Credentials = new System.Net.NetworkCredential("guille8.bcn@gmail.com", "Scolasticos8");
                 // send mail 
                 smtp.Send(message);
             }
+
+            TempData["success"] = true;
+
+            GuidUdi currentPageUdi = new GuidUdi(CurrentPage.ContentType.ItemType.ToString(), CurrentPage.Key);
+
+
+            IContent msg = Services.ContentService.CreateContent(model.Subject, currentPageUdi, "message");
+            msg.SetValue("messageName", model.Name);
+            msg.SetValue("email", model.Email);
+            msg.SetValue("subject", model.Subject);
+            msg.SetValue("messageContent", model.Message);
+            msg.SetValue("umbracoNaviHide", true);
+
+            Services.ContentService.Save(msg);
 
             return RedirectToCurrentUmbracoPage();
         }

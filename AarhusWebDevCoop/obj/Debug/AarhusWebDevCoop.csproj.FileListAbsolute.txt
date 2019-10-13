@@ -234,8 +234,8 @@ C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\bin\ru\Microsoft
 C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\bin\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\bin\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\bin\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\obj\Debug\AarhusWebDevCoop.csprojAssemblyReference.cache
 C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\obj\Debug\AarhusWebDevCoop.csproj.CoreCompileInputs.cache
 C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\obj\Debug\AarhusWebDevCoop.csproj.CopyComplete
 C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\obj\Debug\AarhusWebDevCoop.dll
 C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\obj\Debug\AarhusWebDevCoop.pdb
+C:\Users\GUILLEM\source\repos\AarhusWebDevCoop\AarhusWebDevCoop\obj\Debug\AarhusWebDevCoop.csprojAssemblyReference.cache
